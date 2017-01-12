@@ -247,9 +247,30 @@ http.createServer(function (request, response) {
     }
   ];
 
-  data.forEach((d, i) => {
-    response.write(JSON.stringify(d));
-    response.write("\r\n");
-  });
-  response.end();
+  var idx = 0;
+
+  // loop through data, return each record with time stamp of 250 ms
+  function loop(idx, times) {
+    if (idx === times) {
+      return;
+    }
+
+    (function loopWithDelay() {
+      console.log('send out ' + idx + ' record');
+      setTimeout(() => {
+        if (idx < times) {
+          response.write(JSON.stringify(data[idx]));
+          response.write("\r\n");
+          idx++;
+          loop(idx, times);
+        } else {
+          response.end();
+          return;
+        }
+      }, 250);
+    })();
+  }
+
+  loop(0, data.length);
+
 }).listen(9999, null);
