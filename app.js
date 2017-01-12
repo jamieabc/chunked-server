@@ -365,18 +365,17 @@ http.createServer(function (request, response) {
   // loop through data, return each record with time stamp of 250 ms
   function loop(idx, times) {
     if (idx === times) {
+      console.log('sending data end');
+      response.end();
       return;
     }
 
     (function loopWithDelay() {
       setTimeout(() => {
         if (idx < times) {
-          response.write(JSON.stringify(common[idx]) + "\r\n");
+          response.write(JSON.stringify(data[idx]) + "\r\n");
           idx++;
           loop(idx, times);
-        } else {
-          response.end();
-          return;
         }
       }, 250);
     })();
