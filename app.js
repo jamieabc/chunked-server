@@ -256,7 +256,7 @@ http.createServer(function (request, response) {
     }
 
     (function loopWithDelay() {
-      console.log('send out ' + idx + ' record');
+      console.log('send out record: ', idx);
       setTimeout(() => {
         if (idx < times) {
           response.write(JSON.stringify(data[idx]));
