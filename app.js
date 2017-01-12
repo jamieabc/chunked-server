@@ -3,7 +3,7 @@ var http = require('http');
 http.createServer(function (request, response) {
   response.setHeader('Transfer-Encoding', 'chunked');
 
-  var data = [
+  const data = [
     {
       "cost_ecpa":0.0,
       "advertiser_name":"adv-testdata",
